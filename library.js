@@ -25,11 +25,19 @@ Shoutbox.init.load = function(params, callback) {
 			res.render('admin/plugins/' + Config.plugin.id, data);
 		});
 	}
+	function renderChatRoom( req, res, next) {
+		
+		Config.getTemplateData(function(data) {
+			data.room = req.params.room;
+			res.render(Config.plugin.id, data)
+		});
+	}
 
 	var router = params.router;
 	router.get('/' + Config.plugin.id, params.middleware.buildHeader, renderGlobal);
 	router.get('/api/' + Config.plugin.id, renderGlobal);
-
+	router.get('/chat/:room', params.middleware.buildHeader, renderChatRoom);
+	router.get('/api/chat/:room', params.middleware.buildHeader, renderChatRoom);
 	router.get('/admin/plugins/' + Config.plugin.id, params.middleware.admin.buildHeader, renderAdmin);
 	router.get('/api/admin/plugins/' + Config.plugin.id, renderAdmin);
 

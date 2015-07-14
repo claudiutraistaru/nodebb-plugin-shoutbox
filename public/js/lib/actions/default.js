@@ -78,10 +78,11 @@
 			},
 			handle: function(shoutPanel) {
 				var msg = S(shoutPanel.find('#shoutbox-message-input').val()).stripTags().trim().s;
+				var room = S(shoutPanel.find('.shoutbox-room').text()).stripTags().trim().s;
 
 				if (msg.length) {
 					Shoutbox.commands.parse(msg, function(msg) {
-						Shoutbox.sockets.sendShout({ message: msg });
+						Shoutbox.sockets.sendShout({ message: msg,  room:room  });
 					});
 				}
 				shoutPanel.find('#shoutbox-message-input').val('');

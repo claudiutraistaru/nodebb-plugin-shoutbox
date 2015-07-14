@@ -4,7 +4,8 @@
 			Base.vars.shoutPanel = shoutPanel;
 			if (!Shoutbox.utils.isAnon()) {
 				Shoutbox.utils.initialize(shoutPanel, function() {
-					Base.getShouts(shoutPanel);
+					var room = shoutPanel.find('.shoutbox-room').text().trim();
+					Base.getShouts(shoutPanel, room);
 
 					//Add mentions autofill
 					if (typeof Mentions !== 'undefined' && typeof Mentions.addAutofill !== 'undefined') {
@@ -58,13 +59,15 @@
 				Shoutbox.vars.lastSid = shout.sid;
 			}
 		},
-		getShouts: function(shoutPanel) {
+		getShouts: function(shoutPanel, room) {
 			Shoutbox.sockets.getShouts(function(err, shouts) {
 				if (shouts.length === 0) {
 					Shoutbox.utils.showMessage(Shoutbox.vars.messages.empty, shoutPanel);
 				} else {
 					for(var i = 0; i < shouts.length; i++) {
+                                        if (shouts[i].room === room) {
 						Shoutbox.base.addShout(shouts[i], shoutPanel);
+                                               }
 					}
 				}
 			});

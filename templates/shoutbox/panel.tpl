@@ -7,6 +7,10 @@
     </div>
 
     <div class="panel-body" style="{hiddenStyle}">
+    <span class="shoutbox-room">
+                     {room}
+                     </span>
+
         <div id="shoutbox-content-container">
             <div id="shoutbox-content-overlay">
                 <a href="#" class="shoutbox-content-overlay-close fa fa-times"></a>
